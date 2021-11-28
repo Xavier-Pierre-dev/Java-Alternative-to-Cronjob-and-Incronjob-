@@ -104,9 +104,17 @@ We can have multiple bash working in the background wich performs task for the w
 * Cron job : bash handled by time event (example : bash launched with windows task scheduler periodically). Nice for create back-up on your server for your data or other periodics tasks.
 * Incron job : bash handled by system event (file/folder), basically here a bash will monitor a folder or files and when a changement will happen an event will be trigger to call some bash and performing automating task. That's tipically usefull for performing synchronisation beetween different server. 
 
+
+
 <div align="center">
 
-```mermaid
+![image](CronFunctionnement.png)
+</div>
+
+<details>
+<summary>Mermaid code</summary>
+
+```
 graph TB
     subgraph Outside app
         A[Cron job <br> event : time]
@@ -122,8 +130,8 @@ graph TB
 click A "https://stackoverflow.com/tags/cron/info" "article stack-overflow + good reference [EN]" _blank
 click B "https://linuxfr.org/news/exploiter-inotify-c-est-simple" "article linuxfr + good reference [FR]" _blank
 ```
-</div>
 
+</details>
 
 <br>
 
