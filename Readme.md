@@ -101,6 +101,28 @@ ___
 
 
 We can have multiple bash working in the background wich performs task for the workflow. But respectively to them behaviour we can separate them on 3 families.
+
+<div align="center">
+
+```mermaid
+graph TB
+    subgraph Outside app
+        A[Cron job <br> event : time]
+        B[Incron job <br> event : folder/file]
+    end
+
+    subgraph Inside app
+        AA[Cron job <br> event : time]
+        BB[Incron job <br> event : folder/file]
+        CC[... <br> event & call]
+    end
+
+click A "https://stackoverflow.com/tags/cron/info" "article stack-overflow + good reference [EN]"
+click B "https://linuxfr.org/news/exploiter-inotify-c-est-simple" "article linuxfr + good reference [FR]"
+```
+
+</div>
+
 * Cron job : bash handled by time event (example : bash launched with windows task scheduler periodically). Nice for create back-up on your server for your data or other periodics tasks.
 * Incron job : bash handled by system event (file/folder), basically here a bash will monitor a folder or files and when a changement will happen an event will be trigger to call some bash and performing automating task. That's tipically usefull for performing synchronisation beetween different server. 
 
@@ -108,7 +130,33 @@ We can have multiple bash working in the background wich performs task for the w
 
 <div align="center">
 
-![image](CronFunctionnement.png)
+```mermaid
+graph TB
+
+    subgraph Trigger OR Rules
+        AA[Cron job <br> event : time]
+        BB[Incron job <br> event : folder/file]
+        CC[... <br> Simple call]
+    end
+
+    subgraph Jobs TASK
+    
+        AAA[(Cron job <br> event : time)]
+        BBB[(Incron job <br> event : folder/file)]
+        CCC[(TASK)]
+    end
+
+    subgraph Launcher
+        A[Cron job <br> event : time]--use rules for create jobs-->AA
+        B[Incron job <br> event : folder/file]--use rules for create jobs-->BB
+        C[call]--use rules for create jobs-->CC
+        A-->AAA
+        B-->BBB
+        C-->CCC
+    end
+
+```
+
 </div>
 
 <details>
@@ -150,7 +198,25 @@ Behaviour : bash handled by system event (file/folder), basically here a bash wi
 
 <div align="center">
 
-![image](Incron.png)
+```mermaid
+graph LR
+    subgraph step 2
+
+    AA[<br> Folder / Repository <br> fa:fa-folder <br> New file <br><br> ]
+    BB["Monitoring <br> fa:fa-file File created <br> fa:fa-file File modified <br> fa:fa-file File renamed <br> fa:fa-file File deleted"]
+    CC((user))--send file with ftp-->AA
+    BB--trigger changement-->AA
+    BB--event call-->DD[perform some task]
+    end
+    subgraph step 1
+    A[<br> Folder / Repository <br> fa:fa-folder<br><br> ]
+    B["Monitoring <br> fa:fa-file File created <br> fa:fa-file File modified <br> fa:fa-file File renamed <br> fa:fa-file File deleted"]--watch-->A
+    end
+
+
+
+```
+
 </div>
 <details>
 <summary>mermaid code</summary>
@@ -554,7 +620,33 @@ An alternative can be Openshift
 Graph general :
 <div align="center" >
 
-![image](CronFunctionnement.png)
+```mermaid
+graph TB
+
+    subgraph Trigger OR Rules
+        AA[Cron job <br> event : time]
+        BB[Incron job <br> event : folder/file]
+        CC[... <br> Simple call]
+    end
+
+    subgraph Jobs TASK
+    
+        AAA[(Cron job <br> event : time)]
+        BBB[(Incron job <br> event : folder/file)]
+        CCC[(TASK)]
+    end
+
+    subgraph Launcher
+        A[Cron job <br> event : time]--use rules for create jobs-->AA
+        B[Incron job <br> event : folder/file]--use rules for create jobs-->BB
+        C[call]--use rules for create jobs-->CC
+        A-->AAA
+        B-->BBB
+        C-->CCC
+    end
+
+```
+
 </div>
 
 <details>
